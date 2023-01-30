@@ -28,6 +28,12 @@ nvm install 10.16.0
 npm install express
 ```
 
+```
+node index.js 
+
+```
+
+
 ## Running locally
 
 ### 1. Build the local Db
