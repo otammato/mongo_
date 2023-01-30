@@ -4,7 +4,8 @@
 This is a simple CRUD app built with Express.
 
 ```
-# replace the endpoint with yours
+# replace the endpoint with yours:
+
 mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
 mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
