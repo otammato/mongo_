@@ -138,6 +138,8 @@ sudo iptables -t nat -L
 ```
 node index.js 
 ```
+## 3. Terraform template to create an EC2 + AWS RDS instance
+
 
 
 ## Running locally
