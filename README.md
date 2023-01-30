@@ -1,4 +1,4 @@
-# Coffee suppliers sample app
+# Sample app
 
 ## Summary
 This is a simple CRUD app built with Express.
