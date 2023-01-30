@@ -4,7 +4,7 @@
 This is a simple CRUD app built with Express.
 
 ```
-git clone
+git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 
 ```
 
