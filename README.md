@@ -3,7 +3,11 @@
 ## Summary
 This is a simple CRUD app built with Express.
 
-## 2. Launch the app
+## 1. Create the RDS instance
+
+## 2. Create the RDS instance
+
+## 3. Launch the app
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
