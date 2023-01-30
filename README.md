@@ -3,35 +3,14 @@
 ## Summary
 This is a simple CRUD app built with Express.
 
-```
-# replace the endpoint with yours:
-
-mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
-
-mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
-
-
-```
-
-
-```
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
-
-sudo iptables -t nat -L 
-
-```
-
 
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
-
 ```
 
 ```
 cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/
-
 ```
-
 
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -46,10 +25,25 @@ nvm install 10.16.0
 
 npm install express
 ```
+```
+# replace the endpoint with yours:
+
+mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
+
+mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
+
+```
+
+
+```
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
+
+sudo iptables -t nat -L 
+
+```
 
 ```
 node index.js 
-
 ```
 
 
