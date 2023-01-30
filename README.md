@@ -3,11 +3,102 @@
 ## Summary
 This is a simple CRUD app built with Express.
 
-## 1. Create the RDS instance
+## 1. Terraform template to create an EC2 + AWS RDS instance
 
-## 2. Create the RDS instance
+```
+provider "aws" {
+  region = "us-west-2"
+}
 
-## 3. Launch the app
+resource "aws_vpc" "vpc" {
+  cidr_block = "10.0.0.0/16"
+
+  tags = {
+    Name = "test-vpc"
+  }
+}
+
+resource "aws_subnet" "public_subnet" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "10.0.0.0/24"
+
+  tags = {
+    Name = "test-public-subnet"
+  }
+}
+
+resource "aws_security_group" "ec2_security_group" {
+  name        = "test-ec2-security-group"
+  description = "Allow ssh access"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_instance" "ec2_instance" {
+  ami           = "ami-0ac019c0c79074ee6"
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.public_subnet.id
+  vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "curl --silent --location https://rpm.nodesource.com/setup_12.x | sudo bash -",
+      "sudo yum install nodejs -y",
+      "sudo npm install -g express",
+      "sudo npm install -g npm"
+    ]
+  }
+}
+
+resource "aws_security_group" "rds_security_group" {
+  name        = "test-rds-security-group"
+  description = "Allow mysql access"
+  vpc_id      = aws_vpc.vpc.id
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_db_subnet_group" "rds_subnet_group" {
+  name        = "test-rds-subnet-group"
+  subnet_ids  = [aws_subnet.public_subnet.id]
+}
+
+resource "aws_db_instance" "rds_instance" {
+  engine                  = "mysql"
+  engine_version          = "5.7"
+  instance_class          = "db.t2.micro"
+  db_name                 = "testdb"
+  username                = "testuser"
+  password                = "testpass"
+  allocated_storage    = 20
+  vpc_security_group_ids = [aws_security_group.rds_security_group.id]
+  db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
+}
+```
+
+```
+terraform init
+
+terraform validate
+
+terraform plan
+
+terraform apply
+```
+
+## 2. Launch the app
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
