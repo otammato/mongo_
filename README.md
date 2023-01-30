@@ -4,6 +4,14 @@
 This is a simple CRUD app built with Express.
 
 ```
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
+
+sudo iptables -t nat -L 
+
+```
+
+
+```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 
 ```
