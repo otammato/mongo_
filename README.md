@@ -104,7 +104,7 @@ git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
 
 ```
-cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/
+cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/resources/codebase_partner/
 ```
 
 ```
@@ -117,8 +117,8 @@ nvm install --lts
 nvm install 10.16.0
 npm install express
 npm start
-
 ```
+
 ```
 # replace the endpoint with yours:
 
