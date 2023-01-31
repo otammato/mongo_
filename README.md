@@ -154,6 +154,17 @@ mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE
 
 ### 3. Test the app 
 
+<br><br>
+<p align="center" >
+  <img src="images/Screenshot 2023-01-31 at 19.23.50.png" width="700px"/>
+</p>
+<br><br>
+
+<br><br>
+<p align="center" >
+  <img src="images/Screenshot 2023-01-31 at 19.48.21.png" width="700px"/>
+</p>
+<br><br>
 
 
 ## Running locally
