@@ -3,7 +3,9 @@
 ## Summary
 This is a simple CRUD app built with Express.
 
-## 1. Terraform template to create an EC2 + AWS RDS instance
+## Running on EC2 and RDS MySQL instances
+
+### 1. Terraform template to create an EC2 + AWS RDS instance
 
 ```
 provider "aws" {
@@ -98,7 +100,7 @@ terraform plan
 terraform apply
 ```
 
-## 2. Launch the app
+### 2. Launch the app
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
@@ -150,7 +152,7 @@ mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
 ```
 
-## 3. Test the app 
+### 3. Test the app 
 
 
 
