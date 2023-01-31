@@ -120,6 +120,21 @@ npm start
 ```
 
 ```
+npm i -g pm2
+
+sudo pm2 startup
+#pm2 unstartup systemd
+
+pm2 list
+
+#pm2 kill
+
+#ps aux | grep PM2
+#kill -9 [pid]
+```
+
+
+```
 # replace the endpoint with yours:
 
 mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
