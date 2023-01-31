@@ -1,7 +1,7 @@
 # Sample app (the page is under development)
 
 ## Summary
-This is a simple CRUD app built with Express.
+This is a simple CRUD Node.JS app built with Express.
 
 ## Running on EC2 and RDS MySQL instances
 
