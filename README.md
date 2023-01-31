@@ -135,14 +135,11 @@ pm2 start server.js
 
 ```
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
-sudo iptables -L
-sudo iptables -t nat -L 
-sudo iptables -L --line-numbers
-sudo iptables -t nat -L --line-numbers
-sudo iptables -t nat -L -D PREROUTING 1
-sudo iptables -t nat -D PREROUTING 1
-sudo iptables -t nat -L --line-numbers
-sudo iptables -t nat -D PREROUTING 1
+
+#sudo iptables -L
+#sudo iptables -t nat -L 
+#sudo iptables -t nat -L --line-numbers
+#sudo iptables -t nat -D PREROUTING 1
 ```
 
 ```
@@ -153,16 +150,6 @@ mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 mysql -h database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
 ```
 
-
-```
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
-
-sudo iptables -t nat -L 
-```
-
-```
-node index.js 
-```
 ## 3. Test the app 
 
 
