@@ -169,7 +169,7 @@ mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE
 
 ## Running locally
 
-### 1. Build the local Db
+### 1. Build the local Db manually
 ```sql
 create DATABASE coffee;
 use coffee;
