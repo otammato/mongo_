@@ -146,14 +146,14 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 
 ```
 # replace the endpoint with yours:
-
+# this is to connect with a DB using the command line:
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
+# this is to import a backup file with DB from the project folder.
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
 ```
 
 ### 3. Test the app 
-
 <br><br>
 <p align="center" >
   <img src="images/Screenshot 2023-01-31 at 19.23.50.png" width="700px"/>
