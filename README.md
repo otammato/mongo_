@@ -123,16 +123,27 @@ npm start
 npm i -g pm2
 
 sudo pm2 startup
+
+pm2 start server.js
+
 #pm2 unstartup systemd
-
-pm2 list
-
+#pm2 list
 #pm2 kill
-
 #ps aux | grep PM2
 #kill -9 [pid]
 ```
 
+```
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
+sudo iptables -L
+sudo iptables -t nat -L 
+sudo iptables -L --line-numbers
+sudo iptables -t nat -L --line-numbers
+sudo iptables -t nat -L -D PREROUTING 1
+sudo iptables -t nat -D PREROUTING 1
+sudo iptables -t nat -L --line-numbers
+sudo iptables -t nat -D PREROUTING 1
+```
 
 ```
 # replace the endpoint with yours:
