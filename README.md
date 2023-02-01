@@ -227,7 +227,7 @@ output "ec2_public_ip" {
   value = aws_instance.ec2_instance.public_ip
 }
 ```
-
+<br>
 Launch the template:
 <br>
 ```
@@ -250,16 +250,17 @@ terraform apply
 ```
 
 ### 2. Launch the app manually
-
+<br>
 clone the project files:
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
+<br>
 navigate to the app directory:
 ```
 cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/resources/codebase_partner/
 ```
-
+<br>
 install Node, NPM and Express using NVM
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -271,7 +272,7 @@ nvm install --lts
 nvm install 10.16.0
 npm install express
 ```
-
+<br>
 assign the environment variables received as outputs after Terraform template is applied:
 ```
 export APP_DB_HOST=<paste here the output endpoint of the created RDS instance> \
@@ -279,7 +280,7 @@ export APP_DB_USER=admin \
 export APP_DB_PASSWORD="<your password>" \
 export APP_DB_NAME=COFFEE \
 ```
-
+<br>
 install the pm2 to run the app in the background
 ```
 npm i -g pm2
@@ -294,7 +295,7 @@ pm2 start server.js
 #ps aux | grep PM2
 #kill -9 [pid]
 ```
-
+<br>
 redirect the calls received to port 80 to port 3000 where the app runs
 ```
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
@@ -304,7 +305,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 #sudo iptables -t nat -L --line-numbers
 #sudo iptables -t nat -D PREROUTING 1
 ```
-
+<br>
 use these commands to check and upload the database backup file to your RDS instance
 ```
 # replace the endpoint with yours:
@@ -314,7 +315,7 @@ mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 # this is to import manually a backup file with a MySQL DB from the project folder.
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
 ```
-
+<br>
 ### 3. Test the app 
 Check with your web-browser the connection to your app. Paste in the browser field the terraform output - the DNS address or a public ip of the created EC2 instance.
 <br><br>
