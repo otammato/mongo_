@@ -327,7 +327,7 @@ pm2 start server.js
 ```
 <br>
 
-this command is used in Linux to redirect incoming network traffic on port 80 to port 3000 using iptables.
+this command is used in Linux to redirect incoming network traffic from port 80 to port 3000 using iptables.
 
 ```
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
