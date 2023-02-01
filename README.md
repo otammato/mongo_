@@ -3,9 +3,9 @@
 ## Summary
 This is a simple CRUD Node.JS app built with Express.
 
-## Running the app on AWS EC2 and RDS MySQL instances
+## Running the app on AWS EC2 and RDS MySQL instances.
 
-### 1. Create infrastructure. Terraform template to create an EC2 + an AWS RDS instance
+### 1. Create infrastructure. Terraform template to create an EC2 + an AWS RDS instances.
 
 This Terraform configuration file provisions resources on the Amazon Web Services (AWS) platform.
 
