@@ -255,7 +255,10 @@ nvm install node
 nvm install --lts
 nvm install 10.16.0
 npm install express
-export APP_DB_HOST=<endpoint of our RDS instance> \
+```
+
+```
+export APP_DB_HOST=<paste here the output endpoint of the created RDS instance> \
 export APP_DB_USER=admin \
 export APP_DB_PASSWORD="<your password>" \
 export APP_DB_NAME=COFFEE \
