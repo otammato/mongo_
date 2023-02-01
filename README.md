@@ -48,7 +48,7 @@ The full Terraform template is available here:
 
 https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql/tree/main/Terraform_template
 
-```
+```tf
 provider "aws" {
   region                    = "us-east-1"
   shared_config_files       = ["/home/ec2-user/.aws/config"]
