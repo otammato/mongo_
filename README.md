@@ -292,7 +292,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 # this is to check and connect to an AWS RDS DB using the command line:
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
-# this is to import manually a backup file with DB from the project folder.
+# this is to import manually a backup file with a MySQL DB from the project folder.
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE < my_sql.sql
 ```
 
