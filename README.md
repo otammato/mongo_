@@ -4,7 +4,11 @@
 ## Summary
 This is a simple CRUD Node.JS app built with Express and deployed on the infrastructure created by Terraform.
 
-<br>
+<br><br>
+<p align="center" >
+  <img src="images/Screenshot 2023-01-31 at 19.23.50.png" width="700px"/>
+</p>
+<br><br>
 
 Prerequisites
 - AWS Account
