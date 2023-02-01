@@ -289,7 +289,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 
 ```
 # replace the endpoint with yours:
-# this is to check and connect to RDS DB using the command line:
+# this is to check and connect to an AWS RDS DB using the command line:
 mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -P 3306 -u admin -p
 
 # this is to import manually a backup file with DB from the project folder.
