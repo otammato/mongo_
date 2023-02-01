@@ -252,11 +252,11 @@ terraform apply
 # terraform destroy --target=resource.name
 ```
 
-<br>
+<br><br>
 
 ### 2. Launch the app manually
-<br>
 
+<br>
 clone the project files:
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
