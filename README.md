@@ -2,7 +2,7 @@
 <br>
 
 ## Summary
-This is a simple CRUD Node.JS app built with Express and deployed in the infrastructure created by Terraform
+This is a simple CRUD Node.JS app built with Express and deployed in the infrastructure created by Terraform.
 
 <br>
 
