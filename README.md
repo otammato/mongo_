@@ -68,19 +68,6 @@ data "aws_ssm_parameter" "current-ami" {
   name = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2"
 }
 
-
-#this is if you decide to create the new vpc; for the simplicity I used default
-# resource "aws_vpc" "vpc" {
-#   cidr_block = "10.0.0.0/16"
-#   #public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
-#   enable_dns_hostnames = true
-#   enable_dns_support   = true
-
-#   tags = {
-#     Name = "test-vpc"
-#   }
-# }
-
 resource "aws_default_vpc" "default" {
   enable_dns_hostnames = true
   enable_dns_support   = true
@@ -91,7 +78,6 @@ resource "aws_default_vpc" "default" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_default_vpc.default.id
-  # cidr_block = "10.0.1.0/24"
   cidr_block = "172.31.98.128/25"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -102,7 +88,6 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_subnet" "private_subnet" {
   vpc_id     = aws_default_vpc.default.id
-  # cidr_block = "10.0.2.0/24"
   cidr_block = "172.31.99.128/25"
   availability_zone = data.aws_availability_zones.available.names[1]
 
@@ -121,7 +106,7 @@ resource "aws_security_group" "ec2_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["123.123.123.123/32"] # use your ip here
   }
 
   ingress {
@@ -184,7 +169,7 @@ resource "aws_security_group" "rds_security_group" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["123.123.123.123/32"] # use the ip of created EC2 instance or the id of its security group
   }
 }
 
@@ -204,7 +189,6 @@ resource "aws_db_instance" "rds_instance" {
   vpc_security_group_ids  = [aws_security_group.rds_security_group.id]
   db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
   skip_final_snapshot     = true
-  publicly_accessible     = true
 }
 
 resource "null_resource" "setup_db" {
