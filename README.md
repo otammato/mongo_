@@ -7,6 +7,18 @@ This is a simple CRUD Node.JS app built with Express.
 
 ### 1. Terraform template to create an EC2 + an AWS RDS instance
 
+This Terraform configuration file provisions resources on the Amazon Web Services (AWS) platform.
+
+The provider block sets the AWS region to "us-east-1" and specifies the shared config and credentials files for authentication.
+
+The two data blocks retrieve the available AWS availability zones and the latest Amazon Linux 2 AMI ID from the AWS Simple System Manager (SSM) service.
+
+The resource blocks define various AWS resources such as VPC, subnets, security groups, and EC2 instances. The aws_default_vpc block provisions a default VPC in AWS with the specified settings, while the aws_subnet blocks define the public and private subnets within the VPC.
+
+The aws_security_group block creates an EC2 security group with specified inbound and outbound rules. The aws_instance block provisions an EC2 instance of type t2.micro in the public subnet with specified security group and instance details.
+
+The EC2 instance runs a script after launching that clones a Git repository, installs node.js and the dependencies for a CRUD web application, and starts the application on port 3000.
+
 ```
 provider "aws" {
   region                    = "us-east-1"
