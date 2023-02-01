@@ -108,16 +108,19 @@ resource "aws_instance" "ec2_instance" {
   key_name      = "test_delete"
 
   user_data     = <<-EOF
-#!/bin/bash
-sudo su
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install node
-nvm install --lts
-nvm install 10.16.0
-npm install express
+  #!/bin/bash -xe
+  sudo su
+  yum install git
+  git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
+  cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/resources/codebase_partner/
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+  nvm install node
+  nvm install --lts
+  nvm install 10.16.0
+  npm install express
   EOF
   
   tags = {
