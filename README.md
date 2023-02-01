@@ -242,7 +242,7 @@ terraform plan
 
 terraform apply
 
-# the comands to destroy all the resources or partially
+# the commands to destroy all resources or partially
 # terraform destroy
 
 # terraform state rm RESOURCE, example: terraform state rm aws_ebs_volume.volume.
