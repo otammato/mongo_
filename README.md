@@ -388,7 +388,7 @@ npm install
 export APP_DB_HOST=localhost \
 export APP_DB_USER=root \
 export APP_DB_PASSWORD="" \
-export APP_DB_NAME=coffee \
+export APP_DB_NAME=COFEE \
 npm start
 ```
 If you do not set the env vars when starting the app the values 
