@@ -252,8 +252,9 @@ terraform apply
 # terraform destroy --target=resource.name
 ```
 
-### 2. Launch the app manually
+<br>
 
+### 2. Launch the app manually
 <br>
 
 clone the project files:
