@@ -32,7 +32,7 @@ The two data blocks retrieve the available AWS availability zones and the latest
 
 The resource blocks define various AWS resources such as VPC, subnets, security groups, and EC2 and RDS instances. 
 For simplicity, the aws_default_vpc block provisions a default VPC in AWS with the specified settings, while the aws_subnet blocks define the public and private subnets within the VPC.
-If you are ok using the default VPC, just replace cidr_block "172.31.99.128/25" with factual value oh your default VPC.
+If you are ok using the default VPC, just replace cidr_block "172.31.99.128/25" with factual value of your default VPC.
 
 The aws_security_group block creates an EC2 security group with specified inbound and outbound rules. 
 
