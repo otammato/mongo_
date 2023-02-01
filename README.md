@@ -17,6 +17,8 @@ Prerequisites
 
 ### 1. Create the infrastructure with Terraform and launch the app automatically.
 
+The template description:
+
 This Terraform configuration file provisions resources on the Amazon Web Services (AWS) platform.
 
 The provider block sets the AWS region to "us-east-1" and specifies the shared config and credentials files for authentication.
