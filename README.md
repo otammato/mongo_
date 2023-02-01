@@ -152,6 +152,12 @@ terraform validate
 terraform plan
 
 terraform apply
+
+# terraform state rm RESOURCE, example: terraform state rm aws_ebs_volume.volume.
+
+# terraform state list
+
+# terraform destroy --target=resource.name
 ```
 
 ### 2. Launch the app
