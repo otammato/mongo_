@@ -33,7 +33,7 @@ its hostname, port, username, and endpoint, as well as information about the EC2
 <br>
 <br>
 
-The full Terraform template can be found here:
+The full Terraform template is available here:
 
 https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql/tree/main/Terraform_template
 
