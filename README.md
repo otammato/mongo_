@@ -64,6 +64,7 @@ data "aws_ssm_parameter" "current-ami" {
 }
 
 
+#this is if you decide to create the new vpc; for the simplicity I used default
 # resource "aws_vpc" "vpc" {
 #   cidr_block = "10.0.0.0/16"
 #   #public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
