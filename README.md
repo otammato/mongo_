@@ -2,7 +2,7 @@
 <br>
 
 ## Summary
-This is a simple CRUD Node.JS app built with Express and deployed on the infrastructure created by Terraform.
+This is a simple Node.JS app built with Express and deployed on the infrastructure created by Terraform. The app communicates directly with MySQL database launched on AWS RDS instance and performs CRUD operations with the database.
 
 <br><br>
 <p align="center" >
