@@ -228,6 +228,8 @@ output "ec2_public_ip" {
 }
 ```
 
+Launch the template:
+<br>
 ```
 terraform init
 
@@ -236,6 +238,9 @@ terraform validate
 terraform plan
 
 terraform apply
+
+# the comands to destroy all the resources or partially
+# terraform destroy
 
 # terraform state rm RESOURCE, example: terraform state rm aws_ebs_volume.volume.
 
