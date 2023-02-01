@@ -30,9 +30,10 @@ The "null_resource" named "setup_db". This resource has a depends_on property th
 
 The following outputs provide information about the RDS instance, such as:
 its hostname, port, username, and endpoint, as well as information about the EC2 instance, such as its public DNS and public IP. These outputs can be used for further Terraform configurations or for retrieving information about the instances.
+<br>
+<br>
 
-
-The Terraform template is here:
+The Terraform template can be found here:
 
 https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql/tree/main/Terraform_template
 
