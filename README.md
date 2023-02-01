@@ -343,7 +343,7 @@ Check with your web-browser the connection to your app. Paste in the browser fie
 </p>
 <br><br>
 
-Check the connection to your RDS instance using the mysql command from previous steps
+Check the connection to your RDS instance using the mysql command from previous steps and content of your dataabase
 <br><br>
 <p align="center" >
   <img src="images/Screenshot 2023-01-31 at 19.48.21.png" width="700px"/>
