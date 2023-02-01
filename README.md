@@ -13,13 +13,22 @@ The provider block sets the AWS region to "us-east-1" and specifies the shared c
 
 The two data blocks retrieve the available AWS availability zones and the latest Amazon Linux 2 AMI ID from the AWS Simple System Manager (SSM) service.
 
-The resource blocks define various AWS resources such as VPC, subnets, security groups, and EC2 instances. 
+The resource blocks define various AWS resources such as VPC, subnets, security groups, and EC2 and RDS instances. 
 For simplicity, the aws_default_vpc block provisions a default VPC in AWS with the specified settings, while the aws_subnet blocks define the public and private subnets within the VPC.
 If you are ok using the default VPC, just replace cidr_block "172.31.99.128/25" with factual value oh your default VPC.
 
-The aws_security_group block creates an EC2 security group with specified inbound and outbound rules. The aws_instance block provisions an EC2 instance of type t2.micro in the public subnet with specified security group and instance details.
+The aws_security_group block creates an EC2 security group with specified inbound and outbound rules. 
 
+The aws_instance block provisions an EC2 instance of type t2.micro in the public subnet with specified security group and instance details.
 The EC2 instance runs a script after launching that clones a Git repository, installs node.js and the dependencies for a CRUD web application, and starts the application on port 3000.
+
+The AWS RDS (Relational Database Service) instance. 
+The first block defines an AWS RDS instance using the aws_db_instance resource. The properties of the RDS instance, such as the database engine (MySQL), the engine version, instance class, database name, username, password, storage, security groups, and subnet group are defined using variables. The RDS instance is set to be publicly accessible.
+
+The "null_resource" named "setup_db". This resource has a depends_on property that specifies the RDS instance must be created and ready before this resource can be executed. The provisioner "local-exec" block defines a shell command that connects to the RDS instance using the mysql command and runs the my_sql.sql script to set up the database.
+
+The following outputs provide information about the RDS instance, such as:
+its hostname, port, username, and endpoint, as well as information about the EC2 instance, such as its public DNS and public IP. These outputs can be used for further Terraform configurations or for retrieving information about the instances.
 
 ```
 provider "aws" {
