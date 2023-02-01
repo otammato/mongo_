@@ -250,14 +250,17 @@ terraform apply
 ```
 
 ### 2. Launch the app manually
+
+clone the project files:
 ```
 git clone https://github.com/otammato/CRUD_WebApp_NodeJS_AWS_RDS_MySql.git
 ```
-
+navigate to the app directory:
 ```
 cd CRUD_WebApp_NodeJS_AWS_RDS_MySql/resources/codebase_partner/
 ```
 
+install Node, NPM and Express using NVM
 ```
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 export NVM_DIR="$HOME/.nvm"
@@ -269,6 +272,7 @@ nvm install 10.16.0
 npm install express
 ```
 
+assign the environment variables received as outputs after Terraform template is applied:
 ```
 export APP_DB_HOST=<paste here the output endpoint of the created RDS instance> \
 export APP_DB_USER=admin \
@@ -276,6 +280,7 @@ export APP_DB_PASSWORD="<your password>" \
 export APP_DB_NAME=COFFEE \
 ```
 
+install the pm2 to run the app in the background
 ```
 npm i -g pm2
 
@@ -290,6 +295,7 @@ pm2 start server.js
 #kill -9 [pid]
 ```
 
+redirect the calls received to port 80 to port 3000 where the app runs
 ```
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 
@@ -299,6 +305,7 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
 #sudo iptables -t nat -D PREROUTING 1
 ```
 
+use these commands to check and upload the database backup file to your RDS instance
 ```
 # replace the endpoint with yours:
 # this is to check and connect to an AWS RDS DB using the command line:
