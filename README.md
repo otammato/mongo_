@@ -99,7 +99,7 @@ resource "aws_subnet" "private_subnet" {
 
 resource "aws_security_group" "ec2_security_group" {
   name        = "test-ec2-security-group"
-  description = "Allow ssh access"
+  description = "Allow access"
   vpc_id      = aws_default_vpc.default.id
 
   ingress {
