@@ -1,4 +1,4 @@
-# Sample app (the page is under development)
+# CRUD Node.JS app (the page is under development)
 
 ## Summary
 This is a simple CRUD Node.JS app built with Express.
