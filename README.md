@@ -297,7 +297,7 @@ mysql -h database-2.xxxxxxxxxxxx.us-east-1.rds.amazonaws.com -u admin -p  COFFEE
 ```
 
 ### 3. Test the app 
-Check with your web-browser the connection to your app. Paste in the browser field the terraform output - the public ip of the created EC2 instance.
+Check with your web-browser the connection to your app. Paste in the browser field the terraform output - the DNS address or a public ip of the created EC2 instance.
 <br><br>
 <p align="center" >
   <img src="images/Screenshot 2023-01-31 at 19.23.50.png" width="700px"/>
