@@ -230,6 +230,7 @@ output "ec2_public_ip" {
 <br>
 Launch the template:
 <br>
+
 ```
 terraform init
 
