@@ -9,11 +9,14 @@ This is a simple CRUD Node.JS app built with Express.
 
 ```
 provider "aws" {
-  region = "us-west-2"
+  region = "us-east-1"
+  shared_config_files       = ["/home/ec2-user/.aws/config"]
+  shared_credentials_files  = ["/home/ec2-user/.aws/credentials"]
 }
 
 resource "aws_vpc" "vpc" {
   cidr_block = "10.0.0.0/16"
+  enable_dns_hostnames = true
 
   tags = {
     Name = "test-vpc"
@@ -22,12 +25,24 @@ resource "aws_vpc" "vpc" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.vpc.id
-  cidr_block = "10.0.0.0/24"
+  cidr_block = "10.0.1.0/24"
+  availability_zone = "us-east-1a"
 
   tags = {
     Name = "test-public-subnet"
   }
 }
+
+resource "aws_subnet" "private_subnet" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = "10.0.2.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name     = "test-private-subnet"
+  }
+}
+
 
 resource "aws_security_group" "ec2_security_group" {
   name        = "test-ec2-security-group"
@@ -40,22 +55,45 @@ resource "aws_security_group" "ec2_security_group" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_instance" "ec2_instance" {
-  ami           = "ami-0ac019c0c79074ee6"
+  ami           = "ami-0aa7d40eeae50c9a9"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.public_subnet.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
+  associate_public_ip_address = true
+  key_name      = "test_delete"
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum update -y",
-      "curl --silent --location https://rpm.nodesource.com/setup_12.x | sudo bash -",
-      "sudo yum install nodejs -y",
-      "sudo npm install -g express",
-      "sudo npm install -g npm"
-    ]
+  user_data = <<-EOF
+#!/bin/bash
+sudo su
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+nvm install node
+nvm install --lts
+nvm install 10.16.0
+npm install express
+  EOF
+  
+  tags = {
+    Name = "web-server-terr"
   }
 }
 
@@ -74,19 +112,35 @@ resource "aws_security_group" "rds_security_group" {
 
 resource "aws_db_subnet_group" "rds_subnet_group" {
   name        = "test-rds-subnet-group"
-  subnet_ids  = [aws_subnet.public_subnet.id]
+  subnet_ids  = [aws_subnet.private_subnet.id, aws_subnet.public_subnet.id]
 }
 
 resource "aws_db_instance" "rds_instance" {
   engine                  = "mysql"
   engine_version          = "5.7"
   instance_class          = "db.t2.micro"
-  db_name                 = "testdb"
+  db_name                 = "COFFEE"
   username                = "testuser"
   password                = "testpass"
-  allocated_storage    = 20
-  vpc_security_group_ids = [aws_security_group.rds_security_group.id]
-  db_subnet_group_name = aws_db_subnet_group.rds_subnet_group.name
+  allocated_storage       = 20
+  vpc_security_group_ids  = [aws_security_group.rds_security_group.id]
+  db_subnet_group_name    = aws_db_subnet_group.rds_subnet_group.name
+  skip_final_snapshot     = true
+  
+  
+}
+
+
+output "rds_endpoint" {
+  value = aws_db_instance.rds_instance.endpoint
+}
+
+output "ec2_public_dns" {
+  value = aws_instance.ec2_instance.public_dns
+}
+
+output "ec2_public_ip" {
+  value = aws_instance.ec2_instance.public_ip
 }
 ```
 
