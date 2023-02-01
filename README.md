@@ -327,7 +327,7 @@ pm2 start server.js
 ```
 <br>
 
-redirect the calls received to port 80 to port 3000 where the app runs
+this command is used in Linux to redirect incoming network traffic on port 80 to port 3000 using iptables.
 
 ```
 sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 3000
