@@ -1,4 +1,4 @@
-# a Node.JS app (the page is under development)
+# a Node.JS web app (the page is under development)
 <br>
 
 ## Summary
