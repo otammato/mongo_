@@ -3,7 +3,7 @@
 
 ## Summary
 
-This is a simple Node.JS Express application deployed on an infrastructure managed by Terraform. The app connects directly to a MySQL database hosted on an AWS RDS instance, allowing for seamless CRUD operations.
+This is a simple Node.JS Express application deployed on infrastructure managed by Terraform. The app connects directly to a MySQL database hosted on an AWS RDS instance, allowing for seamless CRUD operations.
 
 Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.
 
