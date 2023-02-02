@@ -355,7 +355,7 @@ Check the connection to your RDS instance using the mysql command from previous 
 
 ## Running locally
 
-### 1. Build the local Db manually
+### 1. Build the local DB manually
 ```sql
 create DATABASE coffee;
 use coffee;
