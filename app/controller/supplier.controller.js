@@ -1,125 +1,101 @@
-const Supplier = require("../models/supplier.model.js");
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+const config = require("../config/config.js");
 
+// constructor
+const Supplier = function (supplier) {
+  this.id = supplier.id;
+  this.name = supplier.name;
+  this.address = supplier.address;
+  this.city = supplier.city;
+  this.state = supplier.state;
+  this.email = supplier.email;
+  this.phone = supplier.phone;
+};
 
-const {body, validationResult} = require("express-validator");
+let db;
+MongoClient.connect(config.APP_DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+  if (err) {
+    console.error('Failed to connect to the database');
+    throw err;
+  }
+  db = client.db(config.APP_DB_NAME);
+  console.log('Successfully connected to the database.');
+});
 
-
-exports.create = [
-
-    // Validate and sanitize the name field.
-    body('name', 'The supplier name is required').trim().isLength({min: 1}).escape(),
-    body('address', 'The supplier address is required').trim().isLength({min: 1}).escape(),
-    body('city', 'The supplier city is required').trim().isLength({min: 1}).escape(),
-    body('state', 'The supplier state is required').trim().isLength({min: 1}).escape(),
-    body('phone', 'Phone number should be 10 digit number plus optional country code').trim().isMobilePhone().escape(),
-
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-
-        // Extract the validation errors from a request.
-        const errors = validationResult(req);
-
-        // Create a genre object with escaped and trimmed data.
-        const supplier = new Supplier(req.body);
-
-        if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values/error messages.
-            res.render('supplier-add', {title: 'Create Genre', supplier: supplier, errors: errors.array()});
-        } else {
-            // Data from form is valid., save to db
-            Supplier.create(supplier, (err, data) => {
-                if (err)
-                    res.render("500", {message: `Error occurred while creating the Supplier.`});
-                else res.redirect("/suppliers");
-            });
-        }
+Supplier.create = (newSupplier, result) => {
+  db.collection('suppliers').insertOne(newSupplier, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
     }
-];
-
-exports.findAll = (req, res) => {
-    Supplier.getAll((err, data) => {
-        if (err)
-            res.render("500", {message: "The was a problem retrieving the list of suppliers"});
-        else res.render("supplier-list-all", {suppliers: data});
-    });
+    console.log("created supplier: ", { id: res.insertedId, ...newSupplier });
+    return result(null, { id: res.insertedId, ...newSupplier });
+  });
 };
 
-exports.findOne = (req, res) => {
-    Supplier.findById(req.params.id, (err, data) => {
-        if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Not found Supplier with id ${req.params.id}.`
-                });
-            } else {
-                res.render("500", {message: `Error retrieving Supplier with id ${req.params.id}`});
-            }
-        } else res.render("supplier-update", {supplier: data});
-    });
-};
-
-
-exports.update = [
-
-    // Validate and sanitize the name field.
-    body('name', 'The supplier name is required').trim().isLength({min: 1}).escape(),
-    body('address', 'The supplier address is required').trim().isLength({min: 1}).escape(),
-    body('city', 'The supplier city is required').trim().isLength({min: 1}).escape(),
-    body('state', 'The supplier state is required').trim().isLength({min: 1}).escape(),
-    body('phone', 'Phone number should be 10 digit number plus optional country code').trim().isMobilePhone().escape(),
-
-    // Process request after validation and sanitization.
-    (req, res, next) => {
-
-        // Extract the validation errors from a request.
-        const errors = validationResult(req);
-
-        // Create a genre object with escaped and trimmed data.
-        const supplier = new Supplier(req.body);
-        supplier.i
-
-        if (!errors.isEmpty()) {
-            // There are errors. Render the form again with sanitized values/error messages.
-            res.render('supplier-update', {supplier: supplier, errors: errors.array()});
-        } else {
-            // Data from form is valid., save to db
-            Supplier.updateById(
-                req.body.id,
-                supplier,
-                (err, data) => {
-                    if (err) {
-                        if (err.kind === "not_found") {
-                            res.status(404).send({
-                                message: `Supplier with id ${req.body.id} Not found.`
-                            });
-                        } else {
-                            res.render("500", {message: `Error updating Supplier with id ${req.body.id}`});
-                        }
-                    } else res.redirect("/suppliers");
-                }
-            );
-        }
+Supplier.getAll = result => {
+  db.collection('suppliers').find({}).toArray((err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
     }
-];
-
-exports.remove = (req, res) => {
-    Supplier.delete(req.params.id, (err, data) => {
-        if (err) {
-            if (err.kind === "not_found") {
-                res.status(404).send({
-                    message: `Not found Supplier with id ${req.params.id}.`
-                });
-            } else {
-                res.render("500", {message: `Could not delete Supplier with id ${req.body.id}`});
-            }
-        } else res.redirect("/suppliers");
-    });
+    console.log("suppliers: ", res);
+    return result(null, res);
+  });
 };
 
-exports.removeAll = (req, res) => {
-    Supplier.removeAll((err, data) => {
-        if (err)
-            res.render("500", {message: `Some error occurred while removing all suppliers.`});
-        else res.send({message: `All Suppliers were deleted successfully!`});
-    });
+Supplier.findById = (supplierId, result) => {
+  db.collection('suppliers').findOne({ _id: ObjectID(supplierId) }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (!res) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("found supplier: ", res);
+    return result(null, res);
+  });
 };
+
+Supplier.updateById = (id, supplier, result) => {
+  db.collection('suppliers').updateOne({ _id: ObjectID(id) }, { $set: supplier }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (res.matchedCount === 0) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("updated supplier: ", { id: id, ...supplier });
+    return result(null, { id: id, ...supplier });
+  });
+};
+
+Supplier.delete = (id, result) => {
+  db.collection('suppliers').deleteOne({ _id: ObjectID(id) }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (res.deletedCount === 0) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("deleted supplier with id: ", id);
+    return result(null, res);
+  });
+};
+
+Supplier.removeAll = result => {
+  db.collection('suppliers').deleteMany({}, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    console.log(`deleted ${res.deletedCount} suppliers`);
+    return result(null, res);
+  });
+};
+
+module.exports = Supplier;
