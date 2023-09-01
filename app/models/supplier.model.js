@@ -1,127 +1,101 @@
-const mysql = require("mysql2");
-const dbConfig = require("../config/config.js");
+const MongoClient = require('mongodb').MongoClient;
+const ObjectID = require('mongodb').ObjectID;
+const config = require("../config/config.js");
+
 // constructor
 const Supplier = function (supplier) {
-    this.id = supplier.id;
-    this.name = supplier.name;
-    this.address = supplier.address;
-    this.city = supplier.city;
-    this.state = supplier.state;
-    this.email = supplier.email;
-    this.phone = supplier.phone;
+  this.id = supplier.id;
+  this.name = supplier.name;
+  this.address = supplier.address;
+  this.city = supplier.city;
+  this.state = supplier.state;
+  this.email = supplier.email;
+  this.phone = supplier.phone;
 };
-// connecting on each request so the server will start without a db connection, plus
-//   a simple mechanism enabling the app to recover from a momentary missing db connection
-Supplier.dbConnect = () => {
-    const connection = mysql.createConnection({
-        host: "database-2.c9rglxpvlls0.us-east-1.rds.amazonaws.com",
-        port: "3306",
-        user: "admin",
-        password: "12345678",
-        database: "COFFEE"
-    });
-    connection.connect(error => {
-        if (error) {
-            console.log("Error connecting to Db")
-            throw error;
-        }
-        console.log("Successfully connected to the database.");
-    });
-    return connection;
-}
+
+let db;
+MongoClient.connect(config.APP_DB_HOST, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+  if (err) {
+    console.error('Failed to connect to the database');
+    throw err;
+  }
+  db = client.db(config.APP_DB_NAME);
+  console.log('Successfully connected to the database.');
+});
 
 Supplier.create = (newSupplier, result) => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query("INSERT INTO suppliers SET ?", newSupplier, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log("created supplier: ", {id: res.insertId, ...newSupplier});
-        result(null, {id: res.insertId, ...newSupplier});
-    });
+  db.collection('suppliers').insertOne(newSupplier, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    console.log("created supplier: ", { id: res.insertedId, ...newSupplier });
+    return result(null, { id: res.insertedId, ...newSupplier });
+  });
 };
 
 Supplier.getAll = result => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query("SELECT * FROM suppliers", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log("suppliers: ", res);
-        result(null, res);
-    });
+  db.collection('suppliers').find({}).toArray((err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    console.log("suppliers: ", res);
+    return result(null, res);
+  });
 };
 
 Supplier.findById = (supplierId, result) => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query(`SELECT * FROM suppliers WHERE id = ${supplierId}`, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        if (res.length) {
-            console.log("found supplier: ", res[0]);
-            result(null, res[0]);
-            return;
-        }
-        result({kind: "not_found"}, null);
-    });
+  db.collection('suppliers').findOne({ _id: ObjectID(supplierId) }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (!res) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("found supplier: ", res);
+    return result(null, res);
+  });
 };
 
 Supplier.updateById = (id, supplier, result) => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query(
-        "UPDATE suppliers SET name = ?, city = ?, address = ?, email = ?, phone = ?, state = ? WHERE id = ?",
-        [supplier.name, supplier.city, supplier.address, supplier.email, supplier.phone, supplier.state, id],
-        (err, res) => {
-            if (err) {
-                console.log("error: ", err);
-                result(err, null);
-                return;
-            }
-            if (res.affectedRows === 0) {
-                result({kind: "not_found"}, null);
-                return;
-            }
-            console.log("updated supplier: ", {id: id, ...supplier});
-            result(null, {id: id, ...supplier});
-        }
-    );
+  db.collection('suppliers').updateOne({ _id: ObjectID(id) }, { $set: supplier }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (res.matchedCount === 0) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("updated supplier: ", { id: id, ...supplier });
+    return result(null, { id: id, ...supplier });
+  });
 };
 
 Supplier.delete = (id, result) => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query("DELETE FROM suppliers WHERE id = ?", id, (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        if (res.affectedRows === 0) {
-            result({kind: "not_found"}, null);
-            return;
-        }
-        console.log("deleted supplier with id: ", id);
-        result(null, res);
-    });
+  db.collection('suppliers').deleteOne({ _id: ObjectID(id) }, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    if (res.deletedCount === 0) {
+      return result({ kind: "not_found" }, null);
+    }
+    console.log("deleted supplier with id: ", id);
+    return result(null, res);
+  });
 };
 
 Supplier.removeAll = result => {
-    const dbConn = Supplier.dbConnect();
-    dbConn.query("DELETE FROM suppliers", (err, res) => {
-        if (err) {
-            console.log("error: ", err);
-            result(err, null);
-            return;
-        }
-        console.log(`deleted ${res.affectedRows} suppliers`);
-        result(null, res);
-    });
+  db.collection('suppliers').deleteMany({}, (err, res) => {
+    if (err) {
+      console.error("error: ", err);
+      return result(err, null);
+    }
+    console.log(`deleted ${res.deletedCount} suppliers`);
+    return result(null, res);
+  });
 };
 
 module.exports = Supplier;
