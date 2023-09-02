@@ -1,28 +1,28 @@
 
 # MongoDB 
 
-# 1. Migrate the MySQL database to MongoDB by following these steps.
+# 1.1. Migrate the MySQL database to MongoDB by following these steps.
 
 ## 1. Setting up MySQL:
 
-1. **Install MySQL**:
+1.1.1 **Install MySQL**:
     ```bash
     sudo apt install mysql-server -y
     sudo systemctl daemon-reload
     sudo systemctl start mysql
     ```
 
-2. **Access MySQL**:
+1.1.2. **Access MySQL**:
     ```bash
     sudo mysql
     ```
 
-3. **Configure MySQL User**:
+1.1.3. **Configure MySQL User**:
     ```sql
     ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<yoursecurepassword>';
     ```
 
-4. **Create a Sample Database for Testing**:
+1.1.4. **Create a Sample Database for Testing**:
     ```sql
     CREATE DATABASE coffee;
     USE coffee;
@@ -40,20 +40,20 @@
 
     ![MySQL Screenshot](https://github.com/otammato/mongodb/assets/104728608/d288a854-cde8-4e2a-b87c-689ff2108344.png)
 
-5. **Export Data to CSV**:
+1.1.5. **Export Data to CSV**:
     ```bash
     mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
     ```
 
-## 2. Convert CSV to JSON:
+## 1.2. Convert CSV to JSON:
 
-1. **Setup Python & Required Libraries**:
+1.2.1. **Setup Python & Required Libraries**:
     ```bash
     sudo apt install python3-pip
     pip3 install pandas
     ```
 
-2. **Create the Conversion Script**:
+1.2.2. **Create the Conversion Script**:
     ```bash
     touch csv_to_json.py
     ```
@@ -70,14 +70,14 @@
     df.to_json('output.json', orient='records', lines=True)
     ```
 
-3. **Run the Conversion Script**:
+1.2.3. **Run the Conversion Script**:
     ```bash
     python3 csv_to_json.py
     ```
 
-## 3. Setup and Import Data to MongoDB:
+## 1.3. Setup and Import Data to MongoDB:
 
-1. **Install MongoDB**:
+1.3.1. **Install MongoDB**:
 
     [Official MongoDB Installation Guide](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/)
 
@@ -96,7 +96,7 @@
     mongosh
     ```
 
-2. **Import Data into MongoDB**:
+1.3.2. **Import Data into MongoDB**:
     ```bash
     mongoimport --db coffee --collection suppliers --file output.json
     ```
