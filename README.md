@@ -17,7 +17,7 @@
    ```
    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<yoursecurepassword>';
    ```
-   create a sample database to test migration
+   create a sample database to test migration:
    
    ```
    CREATE DATABASE coffee;
