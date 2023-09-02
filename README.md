@@ -5,7 +5,7 @@
 
 ## 1. Setting up MySQL:
 
-1.1.1 **Install MySQL**:
+1.1.1. **Install MySQL**:
 
     ```bash
     sudo apt install mysql-server -y
