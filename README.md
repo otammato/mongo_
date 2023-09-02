@@ -1,7 +1,7 @@
 
 # MongoDB 
 
-# 1.1. Migrate the MySQL database to MongoDB by following these steps.
+# Migrate the MySQL database to MongoDB by following these steps.
 
 ## 1. Setting up MySQL:
 
