@@ -1,6 +1,6 @@
 # mongodb
 
-## 1. Migrate from MySQL database to MongoDB database:
+## 1. Migrate the MySQL database to MongoDB database:
 
 1. MySQL
    
