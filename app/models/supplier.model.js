@@ -20,7 +20,7 @@ const Supplier = mongoose.model('Supplier', SupplierSchema);
 // ... remaining methods will be adapted to use Mongoose queries
 
 Supplier.create = (newSupplier, result) => {
-    Supplier.create(newSupplier, (err, data) => {
+    Supplier.model('Supplier').create(newSupplier, (err, data) => {
         if (err) {
             console.log("error:", err);
             result(err, null);
@@ -30,6 +30,7 @@ Supplier.create = (newSupplier, result) => {
         result(null, data);
     });
 };
+
 
 Supplier.getAll = result => {
     Supplier.find({}, (err, data) => {
