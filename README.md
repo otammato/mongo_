@@ -1,6 +1,6 @@
 # mongodb
 
-## 1. Convert MySQL database to MongoDB database:
+## 1. Migrate from MySQL database to MongoDB database:
 
 1. MySQL
    
@@ -8,6 +8,26 @@
    sudo apt install mysql-server -y
    sudo systemctl daemon-reload
    sudo systemctl start mysql
+   ```
+   
+   ```
+   mysql -u root -p
+   ```
+   
+   ```
+   CREATE DATABASE coffee;
+   USE coffee;
+   CREATE TABLE suppliers(
+     id INT NOT NULL AUTO_INCREMENT,
+     name VARCHAR(255) NOT NULL,
+     address VARCHAR(255) NOT NULL,
+     city VARCHAR(255) NOT NULL,
+     state VARCHAR(255) NOT NULL,
+     email VARCHAR(255) NOT NULL,
+     phone VARCHAR(100) NOT NULL,
+     PRIMARY KEY (id)
+   );
+
    ```
    
    <img width="1000" alt="Screenshot 2023-09-02 at 15 18 46" src="https://github.com/otammato/mongodb/assets/104728608/d288a854-cde8-4e2a-b87c-689ff2108344">
