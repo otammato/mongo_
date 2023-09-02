@@ -22,7 +22,7 @@
     ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<yoursecurepassword>';
     ```
 
-4. **Create Sample Database for Testing**:
+4. **Create a Sample Database for Testing**:
     ```sql
     CREATE DATABASE coffee;
     USE coffee;
