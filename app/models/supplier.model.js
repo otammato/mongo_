@@ -110,7 +110,7 @@ const { MongoClient, ObjectID } = require("mongodb");
 const dbConfig = require("../config/config.js");
 
 const uri = "mongodb://localhost:27017/";
-const dbName = "COFFEE"; // Assuming you want to use the same DB name
+const dbName = "coffee"; // Assuming you want to use the same DB name
 
 let db;
 MongoClient.connect(uri, { useUnifiedTopology: true }, (err, client) => {
