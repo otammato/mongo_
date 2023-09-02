@@ -14,7 +14,7 @@
    mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
    ```
 
-3. Convert .CSV to JSON
+2. Convert .CSV to JSON
 
    ```
    sudo apt install python3-pip
@@ -40,7 +40,7 @@
    python3 csv_to_json.py
    ```
 
-5. MongoDB
-1. install mongodb:
-
-https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
+3. MongoDB
+   1. install mongodb:
+   
+   https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
