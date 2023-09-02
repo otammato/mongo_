@@ -207,7 +207,7 @@ exports.update = (req, res) => {
 };
 
 // Delete a Supplier with the specified supplierId in the request
-exports.delete = (req, res) => {
+exports.remove = (req, res) => {
     Supplier.delete(req.params.supplierId, (err, data) => {
         if (err) {
             if (err.kind === "not_found") {
