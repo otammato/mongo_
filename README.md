@@ -14,7 +14,7 @@
    mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
    ```
 
-3. Convert to JSON
+3. Convert .CSV to JSON
 
    ```
    sudo apt install python3-pip
