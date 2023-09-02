@@ -10,11 +10,13 @@
    sudo systemctl start mysql
    ```
    
+   <img width="1000" alt="Screenshot 2023-09-02 at 15 18 46" src="https://github.com/otammato/mongodb/assets/104728608/d288a854-cde8-4e2a-b87c-689ff2108344">
+
    ```
    mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
    ```
 
-2. Convert .CSV to JSON
+1. Convert .CSV to JSON
 
    ```
    sudo apt install python3-pip
@@ -40,7 +42,7 @@
    python3 csv_to_json.py
    ```
 
-3. MongoDB
+2. MongoDB
    1. install mongodb:
    
    https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-ubuntu/
