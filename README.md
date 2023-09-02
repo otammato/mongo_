@@ -59,3 +59,8 @@
    sudo systemctl enable mongod
    mongosh
    ```
+
+   ```
+   mongoimport --db coffee --collection suppliers --file output.json
+   ```
+   <img width="1000" alt="Screenshot 2023-09-02 at 15 10 30" src="https://github.com/otammato/mongodb/assets/104728608/ee9f8c66-c674-4927-ae8e-91f904659eeb">
