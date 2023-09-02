@@ -11,7 +11,7 @@
    ```
    
    ```
-   mysql -u root -p12345678 -e "SELECT * FROM suppliers" coffee > output.csv
+   mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
    ```
 
 3. Convert to JSON
