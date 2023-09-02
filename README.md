@@ -103,10 +103,6 @@
 
     ![MongoDB Screenshot](https://github.com/otammato/mongodb/assets/104728608/ee9f8c66-c674-4927-ae8e-91f904659eeb.png)
 
----
-
-This structure provides a clearer workflow of the migration process, separated into their main actions.
-
 
 ---
 
