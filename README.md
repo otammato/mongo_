@@ -6,6 +6,7 @@
 ## 1. Setting up MySQL:
 
 1.1.1 **Install MySQL**:
+
     ```bash
     sudo apt install mysql-server -y
     sudo systemctl daemon-reload
@@ -13,16 +14,19 @@
     ```
 
 1.1.2. **Access MySQL**:
+
     ```bash
     sudo mysql
     ```
 
 1.1.3. **Configure MySQL User**:
+
     ```sql
     ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<yoursecurepassword>';
     ```
 
 1.1.4. **Create a Sample Database for Testing**:
+
     ```sql
     CREATE DATABASE coffee;
     USE coffee;
@@ -41,6 +45,7 @@
     ![MySQL Screenshot](https://github.com/otammato/mongodb/assets/104728608/d288a854-cde8-4e2a-b87c-689ff2108344.png)
 
 1.1.5. **Export Data to CSV**:
+
     ```bash
     mysql -u root -p -e "SELECT * FROM suppliers" coffee > output.csv
     ```
@@ -48,12 +53,14 @@
 ## 1.2. Convert CSV to JSON:
 
 1.2.1. **Setup Python & Required Libraries**:
+
     ```bash
     sudo apt install python3-pip
     pip3 install pandas
     ```
 
 1.2.2. **Create the Conversion Script**:
+
     ```bash
     touch csv_to_json.py
     ```
@@ -71,6 +78,7 @@
     ```
 
 1.2.3. **Run the Conversion Script**:
+
     ```bash
     python3 csv_to_json.py
     ```
@@ -97,6 +105,7 @@
     ```
 
 1.3.2. **Import Data into MongoDB**:
+
     ```bash
     mongoimport --db coffee --collection suppliers --file output.json
     ```
