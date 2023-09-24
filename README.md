@@ -42,6 +42,11 @@
     );
     ```
 
+    ```sql
+    INSERT INTO suppliers (name, address, city, state, email, phone)
+    VALUES ('John Smith', 'Downing Street, 10', 'London', 'Greater London', 'john.smith@hotmail.com', '1234567890');
+    ```
+
     ![MySQL Screenshot](https://github.com/otammato/mongodb/assets/104728608/d288a854-cde8-4e2a-b87c-689ff2108344.png)
 
 5. **Export Data to CSV**:
